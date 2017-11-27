@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// relative
+import NavHeader from './containers/NavHeader/NavHeader';
+import Table from './containers/Table/Table';
+import Text from './reusable/Text/Text';
+// css
+import css from './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className={css.App}>
+        <NavHeader />
+        <div className={css.Body}>
+          <Text type="body-title">List of participants</Text>
+          <Table />
+        </div>
       </div>
     );
   }

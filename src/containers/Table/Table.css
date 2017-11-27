@@ -1,0 +1,16 @@
+.Wrapper {
+	background-color: rgb(241, 241, 241);
+	height: 100vh;
+	margin: auto;
+	width: 912px;
+}
+
+.Table {
+	background-color: white;
+	height: 100vh;
+	width: inherit;
+}
+
+.Title {
+	margin-left: 3.2rem;
+}
