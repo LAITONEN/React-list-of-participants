@@ -18,11 +18,10 @@ class Table extends React.Component {
 
   renderTableRows = () => {
       return Object.entries(this.props.participants).map(([id, values]) => {
+            const participant = { ...values, id };
             return (<TableRow
-                      email={values.email}
                       key={id}
-                      name={values.name}
-                      phone={values.phone}
+                      {...participant}
                     />);
       })
   }

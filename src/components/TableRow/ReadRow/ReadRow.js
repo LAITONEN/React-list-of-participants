@@ -37,7 +37,7 @@ const ButtonDiv = styled.div`
 class ReadRow extends React.Component {
 
     renderCell = () => {
-        const { email, name, phone } = this.props;
+        const { email, name, phone } = this.props.participant;
         const orderedTexts = { name, email, phone };
         return Object.entries(orderedTexts).map(([type, value]) => {
             const width = type === 'name' ? 'narrow' :
@@ -48,14 +48,14 @@ class ReadRow extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+
         return (
             <LineDiv>
                 <TextDiv>
     	            {this.renderCell()}
                 </TextDiv>
                 <ButtonDiv>
-                    <IconButton type="edit" />
+                    <IconButton onClick={this.props.onEditClick} type="edit" />
                     <IconButton type="delete" />
                 </ButtonDiv>
             </LineDiv>

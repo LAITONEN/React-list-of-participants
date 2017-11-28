@@ -10,21 +10,19 @@ class TableRow extends React.Component {
 	}
 
 	chooseRowType = () => {
-		const { email, name, phone } = this.props;
 		if (this.state.editMode) {
 			return <EditRow 
 
 					/>;
 		}
 		return <ReadRow	
-					email={email}
-					name={name}
-					phone={phone}
+					onEditClick={() => this.setState({ editMode: true })}
+					onDeleteClick={() => console.log('delete')}
+					participant={this.props}
 				/>;
 	}
 
     render() {
-    	console.log(this.props);
         return this.chooseRowType()
     }
 }
