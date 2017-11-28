@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 // relative
+import validation from '../../hoc/Validation';
 import Input from '../../reusable/Input/Input';
 import Button from '../../reusable/Button/Button';
 import { addParticipant } from '../../actions/actions';
@@ -45,6 +46,7 @@ class FormRow extends React.Component {
       this.setState({ phone: { ...phone, value: e.target.value } });
     }
 
+
     submitData = () => {
       const { email, name, phone } = this.state;
       if (email.valid && name.valid && phone.valid) {
@@ -56,60 +58,14 @@ class FormRow extends React.Component {
       }
     }
 
-    validateEmail = () => {
-        const email = this.state.email.value;
-        const regExp = /[a-z]/g;
-        if (
-            typeof email === 'string' && 
-            email.includes('@') && 
-            (email.split('@').length === 2 && email.split('@')[1].includes ('.')) &&
-            !email.includes (' ') && 
-            regExp.test(email[email.length-1]) &&
-            email.length - email.lastIndexOf('.') > 2
-          ) {
-              this.setState({ email: { value: email, valid: true }});
-          }
-        else this.setState({ email: { value: email, valid: false }});
-    }
-
-    validateName = () => {
-        const name = this.state.name.value;
-        if (typeof name === 'string' && name.includes(' ') && name.length > 4) {
-            const validName = name.split(' ').map(v => {
-              const firstChar = v.charAt(0);
-              if (firstChar !== firstChar.toUpperCase()) {
-                  return v.replace(firstChar, firstChar.toUpperCase());
-              }
-              return v;
-            }).join(' ');
-            console.log(validName);
-            this.setState({ name: { value: validName, valid: true } });
-        }
-        else this.setState({ name: { value: name, valid: false }});
-    }
-
-    validatePhone = () => {
-        const phone = this.state.phone.value;
-        const hasLetters = new RegExp(/[a-z]/, 'gi');
-        const hasNonDigits = new RegExp(/\D/, 'g');
-        if (
-            typeof phone === 'string' && 
-            phone.length > 9 && 
-            !hasLetters.test(phone) && 
-            !hasNonDigits.test(phone)
-          ) {
-              this.setState({ phone: { value: phone, valid: true }});
-            }
-        else this.setState({ phone: { value: phone, valid: false }});
-    }
-
     render() {
+        console.log(this.state);
         const { email, name, phone } = this.state;
         return (
           <LineDiv>
               <Inputs>
                   <Input
-                      onBlur={this.validateName}
+                      onBlur={() => this.setState(this.props.validateName(name.value))}   
                       onChange={this.changeName}
                       placeholder="Full name"
                       tag="div"
@@ -118,7 +74,7 @@ class FormRow extends React.Component {
                       width="narrow"
                   />
                   <Input
-                      onBlur={this.validateEmail}
+                      onBlur={() => this.setState(this.props.validateEmail(email.value))}                      
                       onChange={this.changeEmail}
                       placeholder="E-mail address"
                       tag="div"
@@ -127,8 +83,7 @@ class FormRow extends React.Component {
                       width="wide"
                   />
                   <Input
-                      onBlur={this.validatePhone}
-                      onChange={this.changePhone}
+                      onBlur={() => this.setState(this.props.validatePhone(phone.value))}                        onChange={this.changePhone}
                       placeholder="Phone number"
                       tag="div"
                       valid={phone.valid}
@@ -149,4 +104,4 @@ class FormRow extends React.Component {
     }
 }
 
-export default connect(null, { addParticipant })(FormRow);
+export default validation(connect(null, { addParticipant })(FormRow));

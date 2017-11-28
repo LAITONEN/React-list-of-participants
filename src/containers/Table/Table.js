@@ -25,7 +25,6 @@ class Table extends React.Component {
                     />);
       })
   }
-  // for each table row render <TableRow />
   render() {
     console.log('data:', this.props.participants);
       return (
