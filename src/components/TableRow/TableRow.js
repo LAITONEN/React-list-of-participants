@@ -10,12 +10,22 @@ class TableRow extends React.Component {
 	}
 
 	chooseRowType = () => {
-		if (this.state.editMode) return <EditRow />;
-		return <ReadRow	/>;
+		const { email, name, phone } = this.props;
+		if (this.state.editMode) {
+			return <EditRow 
+
+					/>;
+		}
+		return <ReadRow	
+					email={email}
+					name={name}
+					phone={phone}
+				/>;
 	}
 
     render() {
-        return this.chooseRowType();
+    	console.log(this.props);
+        return this.chooseRowType()
     }
 }
 

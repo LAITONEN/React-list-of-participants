@@ -20,12 +20,13 @@ const StyledButton = styled.button`
 	width: ${props => props.width || '160px'};
 `;
 
-const Button = ({ backColor, color, disabled, title, width }) => {
+const Button = ({ backColor, color, disabled, onClick, title, width }) => {
     return (
 		<StyledButton
 			backColor={backColor}
 			color={color}
 			disabled={disabled}
+			onClick={onClick}
 			width={width}
 		>{title}
 		</StyledButton>

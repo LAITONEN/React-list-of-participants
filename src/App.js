@@ -7,6 +7,7 @@ import Text from './reusable/Text/Text';
 import css from './App.css';
 
 class App extends Component {
+
   render() {
     return (
       <div className={css.App}>

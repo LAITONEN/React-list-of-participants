@@ -1,18 +1,18 @@
 :root {
-  font-size: 62.5%;
-  width: 100%;
+    font-size: 62.5%;
 }
 
 .App {
   align-items: center;
-  margin: auto;
+  height: 100%;
+  margin: 0 auto;
   width: 976px;
 }
 
 .Body {
   background-color: rgb(241, 241, 241);
-  height: auto;
-  margin: auto;
+  height: 100%;
+  margin: 0 auto;
   width: 976px;
 }
 /*

@@ -17,11 +17,9 @@ const StyledText = styled.p.attrs({
 		align-self: center;
 		color: ${props => props.color}; 
 		display: inline-flex;
-		height: ${({ normal }) => normal ? 'auto' : '3.2rem'};
 		font-size: 2.4rem;
   		margin: ${props => props.margin};
 		position: relative;
-		vertical-align: middle;
 `;
 
 const Text = ({ children, color, size, type }) => {
