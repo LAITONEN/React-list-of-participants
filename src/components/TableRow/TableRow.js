@@ -12,17 +12,21 @@ class TableRow extends React.Component {
 	chooseRowType = () => {
 		if (this.state.editMode) {
 			return <EditRow 
-
+						{...this.props}
+						showReadRow={() => this.setState({ editMode: false })}
+						saveChanges={participant => this.props.editParticipant(participant)}
+						participant={this.props.participant} // with id
 					/>;
 		}
 		return <ReadRow	
 					onEditClick={() => this.setState({ editMode: true })}
-					onDeleteClick={() => console.log('delete')}
-					participant={this.props}
+					deleteParticipant={(id) => this.props.deleteParticipant(id)}
+					participant={this.props.participant}
 				/>;
 	}
 
     render() {
+    	console.log('table row id', this.props);
         return this.chooseRowType()
     }
 }

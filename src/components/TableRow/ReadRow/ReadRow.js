@@ -48,7 +48,8 @@ class ReadRow extends React.Component {
     }
 
     render() {
-
+        console.log(this.props);
+        const { id } = this.props.participant;
         return (
             <LineDiv>
                 <TextDiv>
@@ -56,7 +57,7 @@ class ReadRow extends React.Component {
                 </TextDiv>
                 <ButtonDiv>
                     <IconButton onClick={this.props.onEditClick} type="edit" />
-                    <IconButton type="delete" />
+                    <IconButton onClick={() => this.props.deleteParticipant(id)}type="delete" />
                 </ButtonDiv>
             </LineDiv>
         );

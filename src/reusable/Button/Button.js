@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs({
+	backgroundColor: props => {
+		if (props.width === '120px') {
+			
+		}
+	}
+})`
 	background-color: ${props => props.disabled ? props.backColor : "rgb(237, 237, 237)"};
 	border: none;
 	border-radius: 0px;

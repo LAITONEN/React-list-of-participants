@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import validation from '../../hoc/Validation';
 import Input from '../../reusable/Input/Input';
 import Button from '../../reusable/Button/Button';
-import { addParticipant } from '../../actions/actions';
 
 const LineDiv = styled.div`
     align-items: flex-start;
@@ -26,9 +25,9 @@ class FormRow extends React.Component {
 
     state = {
         disabled: false,
-        email: { value: '', valid: undefined },
-        name: { value: '', valid: undefined },
-        phone: { value: '', valid: undefined },
+        email: { value: '', validity: undefined },
+        name: { value: '', validity: undefined },
+        phone: { value: '', validity: undefined },
     }
 
     changeEmail = (e) => {
@@ -104,4 +103,4 @@ class FormRow extends React.Component {
     }
 }
 
-export default validation(connect(null, { addParticipant })(FormRow));
+export default validation(FormRow);
