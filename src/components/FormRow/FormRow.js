@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 // relative
 import validation from '../../hoc/Validation';
 import Input from '../../reusable/Input/Input';
@@ -21,10 +20,20 @@ const Inputs = styled.div`
     margin-left: 0.8rem;
 `;
 
+const ButtonDiv = styled.div`
+    align-self: center;
+    align-items: center;
+    height: 100%;
+    display: inherit;
+    float: right;
+    line-height: 40px;
+    margin: 1.6rem;
+`;
+
 class FormRow extends React.Component {
 
     state = {
-        disabled: false,
+        highlightButton: false,
         email: { value: '', validity: undefined },
         name: { value: '', validity: undefined },
         phone: { value: '', validity: undefined },
@@ -58,8 +67,7 @@ class FormRow extends React.Component {
     }
 
     render() {
-        console.log(this.state);
-        const { email, name, phone } = this.state;
+        const { email, highlightButton, name, phone } = this.state;
         return (
           <LineDiv>
               <Inputs>
@@ -90,14 +98,16 @@ class FormRow extends React.Component {
                       width="medium"
                   />
               </Inputs>
-              <Button 
-                  backColor="rgb(21, 123, 251)"
-                  color="white"
-                  disabled={this.state.disabled}
-                  onClick={this.submitData}
-                  title="Add new" 
-                  width="120px" 
-              />
+              <ButtonDiv>
+                <Button 
+                    backColor="rgb(21, 123, 251)"
+                    color="white"
+                    primary={highlightButton}
+                    onClick={this.submitData}
+                    title="Add new" 
+                    width="120px" 
+                />
+              </ButtonDiv>
           </LineDiv>
         );
     }

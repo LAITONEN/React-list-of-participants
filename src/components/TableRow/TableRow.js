@@ -26,7 +26,6 @@ class TableRow extends React.Component {
 	}
 
     render() {
-    	console.log('table row id', this.props);
         return this.chooseRowType()
     }
 }

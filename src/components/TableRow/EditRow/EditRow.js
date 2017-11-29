@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 // relative
 import Input from '../../../reusable/Input/Input';
 import Button from '../../../reusable/Button/Button';
@@ -12,7 +11,7 @@ const LineDiv = styled.div`
     display: inline-flex;
     justify-content: space-between;
     height: 7.2rem;
-    margin-bottom: 0.8rem;
+    border-bottom: 1px solid rgb(241, 241, 241);
     width: 912px;
 `;
 
@@ -22,11 +21,13 @@ const Inputs = styled.div`
 `;
 
 const ButtonDiv = styled.div`
+    align-items: center;
     align-self: center;
     height: 100%;
     display: inherit;
     float: right;
     line-height: 40px;
+    margin-right: 1.6rem;
 `;
 
 class EditRow extends React.Component {
@@ -98,7 +99,7 @@ class EditRow extends React.Component {
                   tag="div"
                   valid={name.valid}
                   value={name.value}
-                  width="narrow"
+                  width="140px"
               />
               <Input
                   onBlur={() => this.setState(validateEmail(email.value))}                      
@@ -107,7 +108,7 @@ class EditRow extends React.Component {
                   tag="div"
                   valid={email.valid}
                   value={email.value}
-                  width="wide"
+                  width="270px"
               />
               <Input
                   onBlur={() => this.setState(validatePhone(phone.value))}                        
@@ -116,7 +117,7 @@ class EditRow extends React.Component {
                   tag="div"
                   valid={phone.valid}
                   value={phone.value}
-                  width="medium"
+                  width="210px"
               />
           </Inputs>
           <ButtonDiv>
@@ -131,6 +132,8 @@ class EditRow extends React.Component {
 	          	color="rgb(237, 237, 237)"
 	            backColor="rgb(21, 123, 251)"
 	            onClick={this.submitChanges}
+	            onHoverColor="white"
+	            primary
 	            title="Save"
 							width="80px"
 						/>

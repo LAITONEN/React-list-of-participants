@@ -1,33 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import ArrowDown from 'react-icons/lib/md/arrow-downward';
+import ArrowUp from 'react-icons/lib/md/arrow-upward';
 
-				// body-title
-				// table-header-title-unselected
-				// normal
+
+// use theming to remove redundant second arrow styling
+const ArrowDownIcon = styled(ArrowDown)`
+	color: rgb(117, 117, 117); 
+	font-size: 1.6rem;
+	font-weight: 700;
+	margin-left: 0.8rem;
+`;
+
+const ArrowUpIcon = styled(ArrowUp)`
+	color: rgb(117, 117, 117); 
+	font-size: 1.6rem;
+	font-weight: 700;
+	margin-left: 0.8rem;
+`;
 
 const StyledDiv = styled.div.attrs({
-	/*color: ({ type }) => {
-		if (type === 'header') return 'rgb(117, 117, 117)'; // maybe should be 80 80 80
-		return 'rgb(80, 80, 80)';
-	},*/
-	fontWeight: ({ selected, type }) => {
-
-		if (selected) return '700px';
-		if (type === 'header') return '500px';
-		return '400px';
+	fontWeight: ({ shouldSort, text, type }) => {
+		if (shouldSort) return '700';
+		if (type === 'header') return '500';
+		return '400';
 	},
-	// have some sort of bug that adds +2px to each inputs
-	width: ({ width }) => {
-		if (width === 'narrow') return '138px';
-		else if (width === 'wide') return '268px';
-		return '208px';
-	}
 })`
 	align-self: center;
 	color: ${({ type }) => type === 'header' ? 'rgb(117, 117, 117)' : 'rgb(80, 80, 80)'}; 
 	height: ${({ normal }) => normal ? 'auto' : '3.2rem'};
-	font-size: ${props => props.size};
-	font-weight: ${props => props.fontWeight}
+	font-size: ${props => props.type === 'header' ? '1.4rem' : '1.6rem'};
+	font-weight: ${props => props.fontWeight};
 	margin: ${props => props.margin};
 	margin: 1rem;
 	position: relative;
@@ -37,27 +40,20 @@ const StyledDiv = styled.div.attrs({
 
 export default class TableText extends React.Component {
 
-	constructor(props) { 
-	    super(props);
-	    this.state = { selected: props.initial || false}
-	}
-
-	toggleSelection = () => {
-		this.setState(prevState => {
-			return { selected: !prevState.selected };
-		});
-	}
-
 	render () {
-		const { normal, text, width } = this.props; 
+		const { normal, onClick, shouldSort, sortOrder, text, type, width } = this.props; 
+		if (type === 'header') console.log(this.props);
 	    return (
 			<StyledDiv 
 				normal={normal}
-				onClick={this.toggleSelection} 
-				selected={this.state.selected}
+				onClick={onClick} 
+				shouldSort={shouldSort}
+				sortOrder={sortOrder}
 				text={text}
+				type={type}
 				width={width}
-			>{text}
+			><span>{text}</span>
+			{shouldSort ? sortOrder === 'asc' ? <ArrowDownIcon /> : <ArrowUpIcon /> : null}
 			</StyledDiv>
 	    );
 	}

@@ -28,7 +28,6 @@ class Table extends React.Component {
       })
   }
   render() {
-    console.log('data:', this.props.participants);
       return (
       	<div className={css.Wrapper}>
             <FormRow 
@@ -36,7 +35,7 @@ class Table extends React.Component {
             />
           	<div className={css.Table}>
               <div>
-            		{/*<HeaderRow />*/}
+            		<HeaderRow />
             		{this.renderTableRows()}
               </div>
           	</div>

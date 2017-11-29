@@ -16,13 +16,6 @@ const StyledInput = styled.input.attrs({
 				return '2px solid rgb(35, 220, 61)';
 		}
 	},
-    width: props => {
-        switch (props.width) {
-            case 'narrow': return '140px';
-            case 'wide': return '270px';
-            default: return '210px';
-        }
-    },
 })`
 	align-items: center;
 	background-color: rgb(250, 250, 250);

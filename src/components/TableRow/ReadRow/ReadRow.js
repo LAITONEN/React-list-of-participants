@@ -6,11 +6,11 @@ import IconButton from '../../../reusable/IconButton/IconButton';
 
 const LineDiv = styled.div`
     align-self: center;
-    outline: 1px solid rgb(241, 241, 241);
     box-sizing: border-box;
-    height: 7.2rem;
     display: inline-flex;
+    height: 7.2rem;
     justify-content: space-between;
+    border-bottom: 1px solid rgb(241, 241, 241);
     overflow: hidden;
     padding-left: 1.6rem;
     width: 100%;
@@ -40,15 +40,14 @@ class ReadRow extends React.Component {
         const { email, name, phone } = this.props.participant;
         const orderedTexts = { name, email, phone };
         return Object.entries(orderedTexts).map(([type, value]) => {
-            const width = type === 'name' ? 'narrow' :
-                            type === 'email' ? 'wide' : 
-                                                'medium';
+            const width = type === 'name' ? '140px' :
+                            type === 'email' ? '270px' : 
+                                                '210px';
             return <TableText key={type} normal text={value} width={width} />
         });
     }
 
     render() {
-        console.log(this.props);
         const { id } = this.props.participant;
         return (
             <LineDiv>
