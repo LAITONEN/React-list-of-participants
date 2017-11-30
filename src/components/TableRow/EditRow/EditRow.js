@@ -34,7 +34,6 @@ class EditRow extends React.Component {
 
 	constructor(props) { 
 	    super(props);
-	    console.log('edit row constructor id', props);
 	    const { email, id, name, phone } = props.participant;
 	    this.state = {
 	        disabled: false,
@@ -79,8 +78,6 @@ class EditRow extends React.Component {
     }
 
   render() {
-  	console.log('edit row render props id', this.props);
-  	console.log('edit row render state id', this.state);
   	const { 
   		showReadRow, 
   		validateEmail, 

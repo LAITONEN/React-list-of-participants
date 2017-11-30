@@ -20,8 +20,8 @@ const ArrowUpIcon = styled(ArrowUp)`
 `;
 
 const StyledDiv = styled.div.attrs({
-	fontWeight: ({ shouldSort, text, type }) => {
-		if (shouldSort) return '700';
+	fontWeight: ({ sortingHeader, text, type }) => {
+		if (sortingHeader) return '700';
 		if (type === 'header') return '500';
 		return '400';
 	},
@@ -41,19 +41,19 @@ const StyledDiv = styled.div.attrs({
 export default class TableText extends React.Component {
 
 	render () {
-		const { normal, onClick, shouldSort, sortOrder, text, type, width } = this.props; 
-		if (type === 'header') console.log(this.props);
+		const { normal, onClick, sortingHeader, sortingOrder, text, type, width } = this.props; 
+		// does not re-order
 	    return (
 			<StyledDiv 
 				normal={normal}
 				onClick={onClick} 
-				shouldSort={shouldSort}
-				sortOrder={sortOrder}
+				sortingHeader={sortingHeader}
+				sortingOrder={sortingOrder}
 				text={text}
 				type={type}
 				width={width}
 			><span>{text}</span>
-			{shouldSort ? sortOrder === 'asc' ? <ArrowDownIcon /> : <ArrowUpIcon /> : null}
+			{sortingHeader ? sortingOrder === 'asc' ? <ArrowDownIcon /> : <ArrowUpIcon /> : null}
 			</StyledDiv>
 	    );
 	}

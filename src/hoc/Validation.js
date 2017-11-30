@@ -5,7 +5,8 @@ import React from 'react';
 const validation = (WrappedComponent) => {
   return class Validation extends React.Component {
 
-      validateEmail = (email) => {
+      validateEmail = (value) => {
+          const email = value.trim();
           const lowerCase = /[a-z]/g;
           const lowerCaseOrDot = /[^A-Z\W]\./g; // no upper case or sign, but .
 
@@ -22,13 +23,13 @@ const validation = (WrappedComponent) => {
               email.length - email.lastIndexOf('.') > 2 &&
               domain.indexOf('.') > 1
             ) {
-                console.log('true');
                 return { email: { value: email, valid: true }};
             }
           else return { email: { value: email, valid: false }};
       }
 
-      validateName = (name) => {
+      validateName = (value) => {
+          const name = value.trim();
           const hasLetters = /[a-z]/gi;
           if (
               typeof name === 'string' &&
@@ -48,7 +49,8 @@ const validation = (WrappedComponent) => {
           return { name: { value: name, valid: false }};
       }
 
-      validatePhone = (phone) => {
+      validatePhone = (value) => {
+          const phone = value.trim();
           const noLetters = new RegExp(/[^a-z]/, 'gi');
           const hasNonDigits = new RegExp(/\D/, 'g');
           if (

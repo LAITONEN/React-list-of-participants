@@ -59,7 +59,12 @@ class FormRow extends React.Component {
       const { email, name, phone } = this.state;
       if (email.valid && name.valid && phone.valid) {
         const participant = { email: email.value, name: name.value, phone: phone.value };
-        this.props.addParticipant(participant);
+        this.props.addParticipant(participant, this.props.sort);
+        this.setState({ 
+            email: { value: '', validity: undefined },
+            name: { value: '', validity: undefined },
+            phone: { value: '', validity: undefined }, 
+        })
       }
       else {
         console.log('something is wrong');

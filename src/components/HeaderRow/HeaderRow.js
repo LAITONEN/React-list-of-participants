@@ -19,29 +19,17 @@ const LineDiv = styled.div`
 
 class HeaderRow extends React.Component {
 
-    state = {  
-        sort: { by: 'Name', order: 'asc' },
-    }
-
-    changeSortingColumn = (value) => {
-        console.log(value);
-        const order = this.state.sort.order === 'asc' ? 'desc' : 'asc';
-        this.setState(prevState => {
-            return { sort: { by: value, order: order } };
-        });
-    }
-
     renderCells = () => {
-        const { sort } = this.state;
-        return ["Name", "E-mail address", 'Phone Number'].map((v, i) => {
-            const shouldSort = sort.by === v;
+        const { changeSortingColumnTo, propNames, sort } = this.props;
+        return ["Name", "E-mail Address", 'Phone Number'].map((v, i) => {
+            const sortingHeader = sort[0].by === propNames[i];
             const width = i === 0 ? '140px' : i === 1 ? '270px' : '210px';
             return <TableText
                         key={v}
                         normal
-                        onClick={() => this.changeSortingColumn(v)}
-                        shouldSort={shouldSort}
-                        sortOrder={sort.order}
+                        onClick={() => changeSortingColumnTo(propNames[i])}
+                        sortingHeader={sortingHeader}
+                        sortingOrder={sort[0].order}
                         text={v}
                         type="header"
                         width={width}
@@ -50,7 +38,7 @@ class HeaderRow extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log(this.props);
         return (
             <LineDiv>
                 {this.renderCells()}

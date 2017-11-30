@@ -28,6 +28,9 @@ const StyledInput = styled.input.attrs({
 	}
 	font-size: 1.6rem;
 	font-weight: 300;
+	&:hover {
+		box-shadow: 0 0 2px rgba(80, 80, 80, 0.7);
+	}
 	margin: 1.6rem 0.8rem;
 	outline: none;
 	padding: 0rem 1.2rem;

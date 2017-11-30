@@ -1,29 +1,40 @@
 import _ from 'lodash';
-import { ADD_PARTICIPANT, EDIT_PARTICIPANT, DELETE_PARTICIPANT, FETCH_PARTICIPANTS } from '../actions/types';
+import { 
+		ADD_PARTICIPANT, 
+		DELETE_PARTICIPANT, 
+		EDIT_PARTICIPANT, 
+		FETCH_PARTICIPANTS, 
+		SORT_PARTICIPANTS 
+	} from '../actions/types';
 
 
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
-	const { payload, type } = action;
-
+	const { payload, sortingRules, type } = action;
 	switch(type) {
 		case FETCH_PARTICIPANTS:
-			return payload;
-
-		case ADD_PARTICIPANT:
-			// sort elements by whatever they are served by in the Table
-			// meaning => pass the "sorting value" to the action
-			return { ...state, payload };
-
-		case EDIT_PARTICIPANT:
-			const newState = _.mapValues(state, (currentValue, id) => {
-				return id === payload.id ? payload : currentValue;
+			const payloadWithIdProp = _.mapValues(payload, (v, i) => {
+				return {...v, id: i};
 			});
-			return { ...newState, payload };
-				
-		case DELETE_PARTICIPANT:
-			return Object.assign({}, _.filter(state, (v, id) => id !== payload ));
+			if (!Object.keys(state).length) {
+				return _.orderBy(payloadWithIdProp, ['name'], ['asc'])
+			}
+			return payloadWithIdProp; // key is an id as well
+
+		case SORT_PARTICIPANTS:
+			const arrayOfHeaders = [];
+			const arrayOfOrders = [];
+			sortingRules.forEach(sort => {
+				arrayOfHeaders.push(sort.by);
+				arrayOfOrders.push(sort.order);
+			});
+			const result =  _.orderBy(payload, arrayOfHeaders, arrayOfOrders)
+				.reduce((acc, v, i) => {
+				acc[i] = v;
+				return acc;
+			}, {});
+			return result;
 
 		default: 
 			return state;
