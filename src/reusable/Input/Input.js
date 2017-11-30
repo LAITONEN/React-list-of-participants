@@ -29,7 +29,9 @@ const StyledInput = styled.input.attrs({
 	font-size: 1.6rem;
 	font-weight: 300;
 	&:hover {
-		box-shadow: 0 0 2px rgba(80, 80, 80, 0.7);
+		box-shadow: ${({ showHoverEffects }) => {
+			return showHoverEffects ? '0 0 2px rgba(80, 80, 80, 0.7)' : null}
+		};
 	}
 	margin: 1.6rem 0.8rem;
 	outline: none;
@@ -37,20 +39,36 @@ const StyledInput = styled.input.attrs({
 	width: ${props => props.width};
 `;
 
-const Input = ({ onBlur, onChange, placeholder, tag, valid, value, width }) => {
-    return (
-        <Wrapper tag={tag}>
+
+class Input extends React.Component {
+
+	state = {
+		showHoverEffects: true,
+	}
+
+	doubleAction = () => {
+		this.setState({ showHoverEffects: true });
+		this.props.onBlur();
+	}
+
+    render() {
+    	const { onChange, placeholder, tag, valid, value, width } = this.props;
+        return (
+            <Wrapper tag={tag}>
        		<StyledInput
        			className={css.Input}
-       			onBlur={onBlur}
+       			onBlur={this.doubleAction}
        			onChange={onChange}
+       			onFocus={() => this.setState({ showHoverEffects: false })}
        			placeholder={placeholder}
+       			showHoverEffects={this.state.showHoverEffects}
        			valid={valid}
        			value={value}
        			width={width}
    			/>
         </Wrapper> 
-    );
-};
+        );
+    }
+}
 
 export default Input;

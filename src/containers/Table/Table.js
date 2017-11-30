@@ -27,36 +27,27 @@ class Table extends React.Component {
       this.props.fetchParticipants();
   }
 
-
   componentDidUpdate(prevProps) {
     const prevParticipantsLength = Object.keys(prevProps.participants).length;
     if (prevParticipantsLength !== 0 && !_.isEqual(prevProps.participants, this.props.participants))  {
         this.props.sortParticipants(this.props.participants, this.state.sort);
     }
     if (prevParticipantsLength === 0) {
-      console.log('frist');
         this.props.sortParticipants(this.props.participants, this.state.sort);
     }
   }
 
-  // pop the last value from the array
   changeSortingColumnTo = (clickedHeader) => {
-        let sortingValues = [...this.state.sort];
-        sortingValues.pop();
-        // console.log(sortingValues[0].by);
-        // console.log(clickedHeader);
-        if (sortingValues[0].by === clickedHeader) { // if the same header was clicked
-          // console.log(sortingValues[0].order);
-          const order = sortingValues[0].order === 'asc' ? 'desc' : 'asc';
-          sortingValues.unshift({ by: clickedHeader, order });
+        let sortingData = [...this.state.sort];
+        sortingData.pop();
+        if (sortingData[0].by === clickedHeader) { // if the same header was clicked
+          const order = sortingData[0].order === 'asc' ? 'desc' : 'asc';
+          sortingData.unshift({ by: clickedHeader, order });
         } else { // if another header was  clicked
-          // console.log('another header was clicked');
-          sortingValues.unshift({ by: clickedHeader, order: 'asc' });
+          sortingData.unshift({ by: clickedHeader, order: 'asc' });
         }
-        // console.log(sortingValues);
-        this.setState({ sort: [...sortingValues] });
-        this.props.sortParticipants(this.props.participants, [...sortingValues]);
-        
+        this.setState({ sort: [...sortingData] });
+        this.props.sortParticipants(this.props.participants, [...sortingData]);
   }
 
   renderTableRows = () => {
