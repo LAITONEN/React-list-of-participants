@@ -26,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
 			const arrayOfHeaders = [];
 			const arrayOfOrders = [];
 			sortingRules.forEach(sort => {
-				arrayOfHeaders.push(sort.by);
+				arrayOfHeaders.push(sort.header);
 				arrayOfOrders.push(sort.order);
 			});
 			const result =  _.orderBy(payload, arrayOfHeaders, arrayOfOrders)

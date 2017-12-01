@@ -22,7 +22,7 @@ class HeaderRow extends React.Component {
     renderCells = () => {
         const { changeSortingColumnTo, propNames, sort } = this.props;
         return ["Name", "E-mail Address", 'Phone Number'].map((v, i) => {
-            const sortingHeader = sort[0].by === propNames[i];
+            const sortingHeader = sort[0].header === propNames[i];
             const width = i === 0 ? '140px' : i === 1 ? '270px' : '210px';
             return <TableText
                         key={v}
@@ -38,7 +38,6 @@ class HeaderRow extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <LineDiv>
                 {this.renderCells()}

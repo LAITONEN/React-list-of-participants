@@ -14,7 +14,8 @@ import css from './Table.css';
 class Table extends React.Component {
 
   state = {  
-        sort: [{ by: 'name', order: 'asc' }, { by: 'name', order: 'asc' }],
+        sort: [{ header: 'name', order: 'asc' }, { header: 'name', order: 'asc' }],
+        sortingOrders: { email: 'asc', name: 'asc', phone: 'asc' },
   }
 
   /*componentWillReceiveProps(nextProps, nexState) {
@@ -29,25 +30,31 @@ class Table extends React.Component {
 
   componentDidUpdate(prevProps) {
     const prevParticipantsLength = Object.keys(prevProps.participants).length;
-    if (prevParticipantsLength !== 0 && !_.isEqual(prevProps.participants, this.props.participants))  {
-        this.props.sortParticipants(this.props.participants, this.state.sort);
-    }
-    if (prevParticipantsLength === 0) {
+    if (!_.isEqual(prevProps.participants, this.props.participants))  {
         this.props.sortParticipants(this.props.participants, this.state.sort);
     }
   }
 
+  // same header clicked -> order rule changes
+  // different header clicked -> order rule remains
+
   changeSortingColumnTo = (clickedHeader) => {
-        let sortingData = [...this.state.sort];
-        sortingData.pop();
-        if (sortingData[0].by === clickedHeader) { // if the same header was clicked
-          const order = sortingData[0].order === 'asc' ? 'desc' : 'asc';
-          sortingData.unshift({ by: clickedHeader, order });
+        let newSortRules = [...this.state.sort];
+        newSortRules.pop();
+        if (newSortRules[0].header === clickedHeader) { // if the same header was clicked
+          const newOrder = this.state.sortingOrders[clickedHeader] === 'asc' ? 'desc' : 'asc';
+          newSortRules.unshift({ header: clickedHeader, order: newOrder });
+          this.setState({ sortingOrders: { ...this.state.sortingOrders, [clickedHeader]: newOrder } });
+
         } else { // if another header was  clicked
-          sortingData.unshift({ by: clickedHeader, order: 'asc' });
+          newSortRules.unshift({ header: clickedHeader, order: this.state.sortingOrders[clickedHeader] });
         }
-        this.setState({ sort: [...sortingData] });
-        this.props.sortParticipants(this.props.participants, [...sortingData]);
+
+        this.setState({ sort: [...newSortRules] });
+        if (this.props.participants) {
+          console.log([...newSortRules]);
+          this.props.sortParticipants(this.props.participants, [...newSortRules]);
+        }
   }
 
   renderTableRows = () => {
@@ -61,6 +68,7 @@ class Table extends React.Component {
       })
   }
   render() {
+    console.log(this.state);
       return (
       	<div className={css.Wrapper}>
             <FormRow 
