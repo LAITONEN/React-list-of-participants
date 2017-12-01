@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // relative
 import TableText from '../../../reusable/TableText/TableText';
@@ -43,7 +44,7 @@ class ReadRow extends React.Component {
             const width = type === 'name' ? '140px' :
                             type === 'email' ? '270px' : 
                                                 '210px';
-            return <TableText key={type} normal text={value} width={width} />
+            return <TableText key={type} normal text={value} type={type} width={width} />
         });
     }
 
@@ -62,5 +63,16 @@ class ReadRow extends React.Component {
         );
     }
 }
+
+ReadRow.propTypes = {
+    deleteParticipant: PropTypes.func.isRequired,
+    onEditClick: PropTypes.func.isRequired,
+    participant: PropTypes.shape({
+        email: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        phone: PropTypes.string.isRequired,
+    }).isRequired
+};
 
 export default ReadRow;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 //relative
 import EditIcon from 'react-icons/lib/fa/pencil';
@@ -56,6 +57,11 @@ class IconButton extends React.Component {
     	const { onClick, type } = this.props;
         return this.chooseType(onClick, type);
     }
+}
+
+IconButton.propTypes = {
+	onClick: PropTypes.func.isRequired,
+	type: PropTypes.string.isRequired,
 }
 
 

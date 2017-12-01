@@ -31,7 +31,6 @@ export const editParticipant = (participant) => {
 }
 
 export const deleteParticipant = (participantId) => {
-	console.log(participantId);
 	return (dispatch) => {
 		firebase.database().ref(`/participants/${participantId}`).remove()
 		.then(dispatch({ type: DELETE_PARTICIPANT }));

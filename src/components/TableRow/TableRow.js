@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // relative
 import ReadRow from './ReadRow/ReadRow';
 import EditRow from './EditRow/EditRow';
@@ -12,7 +13,6 @@ class TableRow extends React.Component {
 	chooseRowType = () => {
 		if (this.state.editMode) {
 			return <EditRow 
-						{...this.props}
 						showReadRow={() => this.setState({ editMode: false })}
 						saveChanges={participant => this.props.editParticipant(participant)}
 						participant={this.props.participant} // with id
@@ -29,5 +29,14 @@ class TableRow extends React.Component {
         return this.chooseRowType()
     }
 }
+
+TableRow.propTypes = {
+	participant: PropTypes.shape({
+		email: PropTypes.string.isRequired,
+		id: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		phone: PropTypes.string.isRequired,
+	}).isRequired
+};
 
 export default TableRow;

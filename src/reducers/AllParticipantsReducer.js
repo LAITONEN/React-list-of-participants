@@ -1,8 +1,5 @@
 import _ from 'lodash';
 import { 
-		ADD_PARTICIPANT, 
-		DELETE_PARTICIPANT, 
-		EDIT_PARTICIPANT, 
 		FETCH_PARTICIPANTS, 
 		SORT_PARTICIPANTS 
 	} from '../actions/types';
@@ -19,6 +16,10 @@ export default (state = INITIAL_STATE, action) => {
 			});
 			if (!Object.keys(state).length) {
 				return _.orderBy(payloadWithIdProp, ['name'], ['asc'])
+					.reduce((acc, v, i) => {
+						acc[i] = v;
+						return acc;
+					}, {});
 			}
 			return payloadWithIdProp; // key is an id as well
 

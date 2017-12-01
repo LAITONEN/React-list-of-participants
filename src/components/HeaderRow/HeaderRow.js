@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 // relative
 import TableText from '../../reusable/TableText/TableText';
 
@@ -22,16 +23,16 @@ class HeaderRow extends React.Component {
     renderCells = () => {
         const { changeSortingColumnTo, propNames, sort } = this.props;
         return ["Name", "E-mail Address", 'Phone Number'].map((v, i) => {
-            const sortingHeader = sort[0].header === propNames[i];
+            const isSortingHeader = sort[0].header === propNames[i];
             const width = i === 0 ? '140px' : i === 1 ? '270px' : '210px';
             return <TableText
+                        isHeader
                         key={v}
                         normal
                         onClick={() => changeSortingColumnTo(propNames[i])}
-                        sortingHeader={sortingHeader}
+                        isSortingHeader={isSortingHeader}
                         sortingOrder={sort[0].order}
                         text={v}
-                        type="header"
                         width={width}
                 />
         })
@@ -45,5 +46,17 @@ class HeaderRow extends React.Component {
         );
     }
 }
+
+
+
+HeaderRow.propTypes = {
+    changeSortingColumnTo: PropTypes.func.isRequired, 
+    propNames: PropTypes.arrayOf(PropTypes.oneOf(['email', 'name', 'phone'])).isRequired,
+    sort: PropTypes.arrayOf(
+            PropTypes.shape({
+                header: PropTypes.oneOf(['email', 'name', 'phone']).isRequired,
+                order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+            }).isRequired).isRequired,
+};
 
 export default HeaderRow;

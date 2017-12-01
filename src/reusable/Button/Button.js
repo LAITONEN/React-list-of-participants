@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
 	background-color: ${props => props.primary ? props.backColor : "rgb(237, 237, 237)"};
 	border: none;
 	border-radius: 0px;
-	color: ${props => props.primary ? props.color: "rgb(117, 117, 117)" };
+	color: ${props => props.primary ? props.color : "rgb(117, 117, 117)" };
 	font-size: 1.6rem;
 	font-weight: 500;
 	height: 4rem;
@@ -21,7 +22,7 @@ const StyledButton = styled.button`
 	width: ${props => props.width || '160px'};
 `;
 
-const Button = ({ backColor, color, primary, onClick, onHoverColor, onMouseMove, title, width }) => {
+const Button = ({ backColor, color, primary, onClick, onHoverColor, title, width }) => {
     return (
 		<StyledButton
 			backColor={backColor}
@@ -29,12 +30,21 @@ const Button = ({ backColor, color, primary, onClick, onHoverColor, onMouseMove,
 			primary={primary}
 			onClick={onClick}
 			onHoverColor={onHoverColor}
-			onMouseMove={onMouseMove}
 			width={width}
 		>{title}
 		</StyledButton>
         
     );
 };
+
+Button.propTypes = {
+	backColor: PropTypes.string,
+	color: PropTypes.string,
+	primary: PropTypes.bool,
+	onClick: PropTypes.func.isRequired,
+	onHoverColor: PropTypes.string,
+	title: PropTypes.string.isRequired,
+	width: PropTypes.string,
+}
 
 export default Button;

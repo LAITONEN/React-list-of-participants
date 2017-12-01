@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledText = styled.p.attrs({
@@ -22,11 +23,15 @@ const StyledText = styled.p.attrs({
 		position: relative;
 `;
 
-const Text = ({ children, color, size, type }) => {
+const Text = ({ children, color, type }) => {
     return (
 		<StyledText type={type}>{children}</StyledText>
     );
 };
 
+Text.propTypes = {
+	color: PropTypes.string,
+	type: PropTypes.string,
+}
 
 export default Text;

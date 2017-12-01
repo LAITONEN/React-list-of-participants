@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // relative
 import Wrapper from '../Wrapper';
@@ -53,10 +54,12 @@ class Input extends React.Component {
 
     render() {
     	const { onChange, placeholder, tag, valid, value, width } = this.props;
+    	const isPhoneInput = /phone/gi.test(placeholder);
         return (
-            <Wrapper tag={tag}>
+            <Wrapper typeOfJSXtag={tag}>
        		<StyledInput
        			className={css.Input}
+       			maxLength={isPhoneInput ? 23 : 70}
        			onBlur={this.doubleAction}
        			onChange={onChange}
        			onFocus={() => this.setState({ showHoverEffects: false })}
@@ -69,6 +72,15 @@ class Input extends React.Component {
         </Wrapper> 
         );
     }
+}
+
+Input.propTypes = {
+	onChange: PropTypes.func.isRequired,
+	placeholder: PropTypes.string.isRequired,
+	tag: PropTypes.string.isRequired,
+	valid: PropTypes.bool,
+	value: PropTypes.string.isRequired,
+	width: PropTypes.string.isRequired,
 }
 
 export default Input;

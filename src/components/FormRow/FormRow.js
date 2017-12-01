@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 // relative
 import validation from '../../hoc/Validation';
 import Input from '../../reusable/Input/Input';
@@ -59,7 +60,7 @@ class FormRow extends React.Component {
       const { email, name, phone } = this.state;
       if (email.valid && name.valid && phone.valid) {
         const participant = { email: email.value, name: name.value, phone: phone.value };
-        this.props.addParticipant(participant, this.props.sort);
+        this.props.addParticipant(participant);
         this.setState({ 
             email: { value: '', validity: undefined },
             name: { value: '', validity: undefined },
@@ -72,6 +73,7 @@ class FormRow extends React.Component {
     }
 
     render() {
+
         const { email, highlightButton, name, phone } = this.state;
         return (
           <LineDiv>
@@ -116,6 +118,13 @@ class FormRow extends React.Component {
           </LineDiv>
         );
     }
+}
+
+FormRow.propTypes = {
+    addParticipant: PropTypes.func.isRequired,
+    validateEmail: PropTypes.func.isRequired,
+    validateName: PropTypes.func.isRequired,
+    validatePhone: PropTypes.func.isRequired,
 }
 
 export default validation(FormRow);

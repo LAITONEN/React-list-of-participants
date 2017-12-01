@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // relative
 import Input from '../../../reusable/Input/Input';
@@ -139,5 +140,19 @@ class EditRow extends React.Component {
       );
   }
 }
+
+EditRow.propTypes = {
+  participant: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }).isRequired,
+  saveChanges: PropTypes.func.isRequired,
+  showReadRow: PropTypes.func.isRequired,
+  validateEmail: PropTypes.func.isRequired,
+  validateName: PropTypes.func.isRequired,
+  validatePhone: PropTypes.func.isRequired,
+};
 
 export default validation(EditRow);

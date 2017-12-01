@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 // components
 import FormRow from '../../components/FormRow/FormRow';
 import HeaderRow from '../../components/HeaderRow/HeaderRow';
 import TableRow from '../../components/TableRow/TableRow';
+import Spinner from '../../reusable/Spinner/Spinner';
 // actions
 import * as actions from '../../actions';
 // css
@@ -14,22 +16,22 @@ import css from './Table.css';
 class Table extends React.Component {
 
   state = {  
+        dataFetched: false,
         sort: [{ header: 'name', order: 'asc' }, { header: 'name', order: 'asc' }],
         sortingOrders: { email: 'asc', name: 'asc', phone: 'asc' },
   }
 
-  /*componentWillReceiveProps(nextProps, nexState) {
-      if (nextProps !== this.props) {
-
+  componentWillReceiveProps(nextProps, nexState) {
+      if (!this.state.showSpinner) {
+        this.setState({ dataFetched: true });
       }
-  }*/
+  }
 
   componentDidMount() {
       this.props.fetchParticipants();
   }
 
   componentDidUpdate(prevProps) {
-    const prevParticipantsLength = Object.keys(prevProps.participants).length;
     if (!_.isEqual(prevProps.participants, this.props.participants))  {
         this.props.sortParticipants(this.props.participants, this.state.sort);
     }
@@ -52,12 +54,12 @@ class Table extends React.Component {
 
         this.setState({ sort: [...newSortRules] });
         if (this.props.participants) {
-          console.log([...newSortRules]);
           this.props.sortParticipants(this.props.participants, [...newSortRules]);
         }
   }
 
   renderTableRows = () => {
+      if (this.props.participants) {
       return Object.values(this.props.participants).map(values => {
             return (<TableRow
                       editParticipant={participant => this.props.editParticipant(participant)}
@@ -65,15 +67,15 @@ class Table extends React.Component {
                       key={values.id}
                       participant={values}
                     />);
-      })
+        })
+      }
+      return null;
   }
   render() {
-    console.log(this.state);
       return (
       	<div className={css.Wrapper}>
             <FormRow 
               addParticipant={(participant) => this.props.addParticipant(participant)}
-              sort={this.state.sort}
             />
           	<div className={css.Table}>
               <div>
@@ -82,12 +84,20 @@ class Table extends React.Component {
                   changeSortingColumnTo={(clickedHeader) => this.changeSortingColumnTo(clickedHeader)}
                   sort={this.state.sort}
                 />
-            		{this.renderTableRows()}
+            		{this.state.dataFetched ? this.renderTableRows() : <Spinner />}
               </div>
           	</div>
           </div>
       );
   }
+}
+
+Table.propTypes = {
+  participants: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string))
+}
+
+Table.defaultProps = {
+  participants: null,
 }
 
 const mapStateToProps = state => {
