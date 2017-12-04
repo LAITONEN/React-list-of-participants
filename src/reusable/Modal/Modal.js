@@ -6,14 +6,6 @@ import IconButton from '../IconButton/IconButton';
 // import Dummy from '../../../hoc/Dummy';
 import { ModalDiv } from './ModalStyles';
 
-const style = {
-	margin: '0px',
-	position: 'absolute',
-	right: '0',
-	top: '0',
-};
-
-
 class Modal extends React.Component {
 
 	shouldComponentUpdate = (nextProps, nextState) => {

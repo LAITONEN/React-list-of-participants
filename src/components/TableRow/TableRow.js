@@ -11,8 +11,8 @@ class TableRow extends React.Component {
 	}
 
 	chooseRowType = () => {
-		const { editParticipant, deleteParticipant, 
-				headerNames, participant } = this.props;
+		const { editParticipant, headerNames, 
+				participant, showModal } = this.props;
 
 		if (this.state.editMode) {
 			return <EditRow 
@@ -22,10 +22,10 @@ class TableRow extends React.Component {
 					/>;
 		}
 		return <ReadRow	
-					deleteParticipant={(id) => deleteParticipant(id)}
 					headerNames={headerNames}
 					onEditClick={() => this.setState({ editMode: true })}
 					participant={participant}
+					showModal={(participant) => showModal(participant)}
 				/>;
 	}
 

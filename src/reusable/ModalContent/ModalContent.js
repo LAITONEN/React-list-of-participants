@@ -33,7 +33,7 @@ const ModalContent = ({ children, headerNames, hideModal, participant, proceedWi
 		return Object.entries(participant).map(([index]) => {
 			if (headerNames[index]) {
 				return (
-						<Text bold key={index} size="1.8rem">
+						<Text left bold key={index} size="1.8rem">
 							{headerNames[index]}:
 						</Text>
 					);

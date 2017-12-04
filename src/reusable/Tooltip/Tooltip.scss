@@ -1,0 +1,115 @@
+$cavet-border: 5px solid transparent;
+
+.wrapper {
+	display: inline-block;
+	position: relative;
+
+	.tooltip {
+	    border-radius: 6px;
+	    height: auto;
+	    width: 120px;
+	    padding: 5px;
+	    position: absolute;
+	    text-align: center;
+	    z-index: 1;
+	}
+
+// Position
+
+	.top {
+		bottom: 130%;
+	    left: -8%;
+	}
+
+	.top::after {
+	    border: cavet-border;
+  		border-top-color: inherit;
+		content: "";
+	    left: 46%;
+	    margin: var(--caret-margin);
+	    position: absolute;
+	    top: 100%;
+	}
+
+	.bottom {
+	    left: -8%;
+		top: 130%;
+	}
+
+	.bottom::after {
+		content: "";
+	    border: cavet-border;
+  		border-bottom-color: inherit;
+	    bottom: 100%;
+	    left: 46%;
+	    margin: var(--caret-margin);
+	    position: absolute;
+	}
+
+	.left {
+		max-width: 240px;
+		right: 110%;
+		top: -30%;
+	}
+
+	.left::after {
+	    border: cavet-border;
+  		border-left-color: inherit;
+		content: "";
+	    left: 100%;
+		margin: var(--caret-margin);
+	    position: absolute;
+		top: 30%;
+	}
+
+	.right {
+		left: 110%;
+		max-width: 240px;
+		top: -30%;
+	}
+
+	.right::after {
+	    border: ;
+  		border-right-color: inherit;
+		content: "";
+	    margin: var(--caret-margin);
+	    position: absolute;
+	    right: 100%;
+	    top: 30%;
+	}
+
+
+// Visibility
+
+	.visible {
+		opacity: 1;
+		visibiliy: visible;
+	}
+
+	.hidden {
+		opacity: 0;
+		visibiliy: hidden;
+	}
+
+
+// Transitions
+
+	.transition-long {
+		transition: opacity 2s ease-in-out;
+	}
+
+	.transition-quick {
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	.transition-rapid {
+		transition: opacity 0.1s ease-in-out;
+	}
+
+	.transition-quick-short-delay {
+		transition: opacity 0.3s ease-in-out 0.5s;
+	}
+
+}
+
+	    

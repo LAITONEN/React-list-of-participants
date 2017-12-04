@@ -18,6 +18,7 @@ const StyledText = styled.p.attrs({
 		display: inline-flex;
 		font-size: ${({ size }) => size ? size : '2.4rem'};
 		font-weight: ${({ bold }) => bold ? '600' : '400'};
+		justify-content: flex-start;
   		margin: ${props => props.margin};
 		position: relative;
 `;

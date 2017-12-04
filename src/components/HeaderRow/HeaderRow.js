@@ -11,12 +11,6 @@ const LineDiv = styled.div`
     box-sizing: border-box;
     display: inline-flex;
     height: 4.8rem;
-    &:hover {
-        background-color: white;
-        border-bottom: 2px solid rgb(220, 220, 220);
-        border-top: 2px solid rgb(220, 220, 220);
-        tra
-    }
     overflow: hidden;
     padding-left: 1.6rem;
     vertical-align: middle;

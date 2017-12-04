@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // relative
 import IconButton from '../../../reusable/IconButton/IconButton';
-import Modal from '../../../reusable/Modal/Modal';
-import ModalContent from '../../../reusable/ModalContent/ModalContent';
 import TableText from '../../../reusable/TableText/TableText';
 // styles
 import { ButtonDiv, LineDiv, TextDiv } from './ReadRowStyles';
@@ -25,7 +23,7 @@ class ReadRow extends React.Component {
     }
 
     render() {
-        const { id } = this.props.participant;
+        const { participant, showModal } = this.props;
         return (
             <LineDiv>
                 <TextDiv>
@@ -33,28 +31,14 @@ class ReadRow extends React.Component {
                 </TextDiv>
                 <ButtonDiv>
                     <IconButton onClick={this.props.onEditClick} type="edit" />
-                    <IconButton onClick={() => this.setState({ modalVisible: true })}type="delete" />
+                    <IconButton onClick={() => showModal(participant)}type="delete" />
                 </ButtonDiv>
-                <Modal
-                    hideModal={() => this.setState({ modalVisible: false })}
-                    visible={this.state.modalVisible}
-                >
-                    <ModalContent
-                        headerNames={this.props.headerNames}
-                        hideModal={() => this.setState({ modalVisible: false })}
-                        participant={this.props.participant}
-                        proceedWithAction={() => this.props.deleteParticipant(id)}
-                    >
-                        Are you sure you want to delete this participant?
-                    </ModalContent>
-                </Modal>
             </LineDiv>
         );
     }
 }
 
 ReadRow.propTypes = {
-    deleteParticipant: PropTypes.func.isRequired,
     onEditClick: PropTypes.func.isRequired,
     participant: PropTypes.shape({
         email: PropTypes.string.isRequired,

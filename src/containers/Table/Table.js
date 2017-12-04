@@ -5,8 +5,10 @@ import _ from 'lodash';
 // components
 import FormRow from '../../components/FormRow/FormRow';
 import HeaderRow from '../../components/HeaderRow/HeaderRow';
-import TableRow from '../../components/TableRow/TableRow';
+import Modal from '../../reusable/Modal/Modal';
+import ModalContent from '../../reusable/ModalContent/ModalContent';
 import Spinner from '../../reusable/Spinner/Spinner';
+import TableRow from '../../components/TableRow/TableRow';
 // actions
 import * as actions from '../../actions';
 // css
@@ -19,6 +21,8 @@ class Table extends React.Component {
   state = {  
         dataFetched: false,
         headerNames: { name: 'Name', email: 'E-mail Address', phone: 'Phone Number'},
+        modalVisible: false,
+        participant: {},
         propNames: ['name', 'email', 'phone'],
         sort: [{ header: 'name', order: 'asc' }, { header: 'name', order: 'asc' }],
         sortingOrders: { email: 'asc', name: 'asc', phone: 'asc' },
@@ -61,36 +65,54 @@ class Table extends React.Component {
         }
   }
 
+  showModal = (participant) => {
+    this.setState({ modalVisible: true, participant });
+  }
+
   renderTableRows = () => {
-    const { editParticipant, deleteParticipant, participants } = this.props
+    const { editParticipant, participants } = this.props
       if (participants) {
       return Object.values(participants).map(values => {
-            return (<TableRow
-                      editParticipant={participant => editParticipant(participant)}
-                      deleteParticipant={id => deleteParticipant(id)}
-                      headerNames={this.state.headerNames}
-                      key={values.id}
-                      participant={values}
-                    />);
+          return (<TableRow
+                    editParticipant={participant => editParticipant(participant)}
+                    headerNames={this.state.headerNames}
+                    key={values.id}
+                    participant={values}
+                    showModal={(participant) => this.showModal(participant)}
+                  />);
         })
       }
       return null;
   }
+
   render() {
-    const { dataFetched, headerNames, propNames, sort } = this.state;
+    const { dataFetched, headerNames, modalVisible, participant, sort } = this.state;
       return (
       	<WrapperDiv>
-            <FormRow 
-              addParticipant={(participant) => this.props.addParticipant(participant)}
+          <FormRow 
+            addParticipant={(participant) => this.props.addParticipant(participant)}
+          />
+        	<TableDiv>
+        		<HeaderRow 
+              headerNames={headerNames}
+              changeSortingColumnTo={(clickedHeader) => this.changeSortingColumnTo(clickedHeader)}
+              sort={sort}
             />
-          	<TableDiv>
-            		<HeaderRow 
-                  headerNames={headerNames}
-                  changeSortingColumnTo={(clickedHeader) => this.changeSortingColumnTo(clickedHeader)}
-                  sort={sort}
-                />
-            		{dataFetched ? this.renderTableRows() : <Spinner />}
-          	</TableDiv>
+        		{dataFetched ? this.renderTableRows() : <Spinner />}
+        	</TableDiv>
+          <Modal
+            hideModal={() => this.setState({ modalVisible: false })}
+            visible={modalVisible}
+          >
+            <ModalContent
+              headerNames={headerNames}
+              hideModal={() => this.setState({ modalVisible: false })}
+              participant={participant}
+              proceedWithAction={() => this.props.deleteParticipant(participant.id)}
+            >
+                Are you sure you want to delete this participant?
+            </ModalContent>
+           </Modal>
           </WrapperDiv>
       );
   }
