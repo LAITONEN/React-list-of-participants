@@ -4,23 +4,34 @@ import styled from 'styled-components';
 //relative
 import EditIcon from 'react-icons/lib/fa/pencil';
 import DeleteIcon from 'react-icons/lib/fa/trash';
+import CrossIcon from 'react-icons/lib/fa/close';
 
-const Icon = styled.button`
-		background-color: none;
-		border: none;
-		margin: 15px;
-		outline: none;
-
+const NormalIcon = styled.button`
+	background-color: none;
+	border: none;
+	margin: 15px;
+	outline: none;
 `;
 
-const Edit = styled(EditIcon)`
+const CornerIcon = NormalIcon.extend`
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+`;
+
+const Cross = styled(CrossIcon)`
 	color: rgb(144, 144, 144);
 	height: 24px;
 	&:hover {
-			color: rgb(21, 123, 251);
+			color: rgb(220, 34, 34);
 			cursor: pointer;
+			-webkit-transform: scale(1.1, 1.1);
+			-ms-transform: scale(1.1, 1.1);
+			transform: scale(1.1, 1.1);
+			transition: all 0.2s ease-in-out;
 		}
-	width: 24px 
+	width: 24px;
 `;
 
 const Delete = styled(DeleteIcon)`
@@ -29,33 +40,57 @@ const Delete = styled(DeleteIcon)`
 	&:hover {
 			color: rgb(220, 34, 34);
 			cursor: pointer;
+			-webkit-transform: scale(1.1, 1.1);
+			-ms-transform: scale(1.1, 1.1);
+			transform: scale(1.1, 1.1);
+			transition: all 0.2s ease-in-out;
 		}
 	width: 24px;
 `;
 
+const Edit = styled(EditIcon)`
+	color: rgb(144, 144, 144);
+	height: 24px;
+	&:hover {
+			color: rgb(21, 123, 251);
+			cursor: pointer;
+			-webkit-transform: scale(1.1, 1.1);
+			-ms-transform: scale(1.1, 1.1);
+			transform: scale(1.1, 1.1);
+			transition: all 0.2s ease-in-out;
+		}
+	width: 24px 
+`;
+
 class IconButton extends React.Component {
 
-	chooseType = (onClick, type) => {
+	renderIconByType = (onClick, type) => {
 		if (type === 'edit') {
 			return (
-				<Icon onClick={onClick} type="edit">
+				<NormalIcon onClick={onClick} type="edit">
 					<Edit />
-				</Icon>
+				</NormalIcon>
 			);
 		}
 		else if (type === 'delete') {
 			return  (
-				<Icon onClick={onClick} type="delete">
+				<NormalIcon onClick={onClick} type="delete">
 					<Delete />
-				</Icon>
+				</NormalIcon>
 			);
 		}
-		return null;
+		else {
+			return (
+				<CornerIcon onClick={onClick} type="cross">
+					<Cross />
+				</CornerIcon>
+			);
+		}
 	}
 
     render() {
     	const { onClick, type } = this.props;
-        return this.chooseType(onClick, type);
+        return this.renderIconByType(onClick, type);
     }
 }
 

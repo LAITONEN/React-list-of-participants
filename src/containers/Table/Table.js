@@ -10,13 +10,16 @@ import Spinner from '../../reusable/Spinner/Spinner';
 // actions
 import * as actions from '../../actions';
 // css
-import css from './Table.css';
+import { TableDiv, WrapperDiv } from './TableStyles';
+
 
 
 class Table extends React.Component {
 
   state = {  
         dataFetched: false,
+        headerNames: { name: 'Name', email: 'E-mail Address', phone: 'Phone Number'},
+        propNames: ['name', 'email', 'phone'],
         sort: [{ header: 'name', order: 'asc' }, { header: 'name', order: 'asc' }],
         sortingOrders: { email: 'asc', name: 'asc', phone: 'asc' },
   }
@@ -59,11 +62,13 @@ class Table extends React.Component {
   }
 
   renderTableRows = () => {
-      if (this.props.participants) {
-      return Object.values(this.props.participants).map(values => {
+    const { editParticipant, deleteParticipant, participants } = this.props
+      if (participants) {
+      return Object.values(participants).map(values => {
             return (<TableRow
-                      editParticipant={participant => this.props.editParticipant(participant)}
-                      deleteParticipant={id => this.props.deleteParticipant(id)}
+                      editParticipant={participant => editParticipant(participant)}
+                      deleteParticipant={id => deleteParticipant(id)}
+                      headerNames={this.state.headerNames}
                       key={values.id}
                       participant={values}
                     />);
@@ -72,22 +77,21 @@ class Table extends React.Component {
       return null;
   }
   render() {
+    const { dataFetched, headerNames, propNames, sort } = this.state;
       return (
-      	<div className={css.Wrapper}>
+      	<WrapperDiv>
             <FormRow 
               addParticipant={(participant) => this.props.addParticipant(participant)}
             />
-          	<div className={css.Table}>
-              <div>
+          	<TableDiv>
             		<HeaderRow 
-                  propNames={['name', 'email', 'phone']}
+                  headerNames={headerNames}
                   changeSortingColumnTo={(clickedHeader) => this.changeSortingColumnTo(clickedHeader)}
-                  sort={this.state.sort}
+                  sort={sort}
                 />
-            		{this.state.dataFetched ? this.renderTableRows() : <Spinner />}
-              </div>
-          	</div>
-          </div>
+            		{dataFetched ? this.renderTableRows() : <Spinner />}
+          	</TableDiv>
+          </WrapperDiv>
       );
   }
 }

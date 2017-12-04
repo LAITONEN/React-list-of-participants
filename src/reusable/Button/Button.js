@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
 	background-color: ${props => props.primary ? props.backColor : "rgb(237, 237, 237)"};
-	border: none;
+	border: ${({ backColor, border }) => border ? `3px solid ${backColor}` : 'none'} ;
 	border-radius: 0px;
 	color: ${props => props.primary ? props.color : "rgb(117, 117, 117)" };
 	font-size: 1.6rem;
@@ -13,8 +13,11 @@ const StyledButton = styled.button`
 	&:hover {
 		color: ${props => props.onHoverColor || props.color};
 		background-color: ${props => props.backColor};
+		border: none;
 		cursor: pointer;
-		font-size: 1.65rem;
+		-webkit-transform: scale(1.05, 1.05);
+		-ms-transform: scale(1.05, 1.05);
+		transform: scale(1.05, 1.05);
 	}
 	margin-left: 0.8rem;
 	outline: none;
@@ -22,7 +25,7 @@ const StyledButton = styled.button`
 	width: ${props => props.width || '160px'};
 `;
 
-const Button = ({ backColor, color, primary, onClick, onHoverColor, title, width }) => {
+const Button = ({ backColor, color, primary, onClick, onHoverColor, style, title, width }) => {
     return (
 		<StyledButton
 			backColor={backColor}
@@ -30,6 +33,7 @@ const Button = ({ backColor, color, primary, onClick, onHoverColor, title, width
 			primary={primary}
 			onClick={onClick}
 			onHoverColor={onHoverColor}
+			style={style}
 			width={width}
 		>{title}
 		</StyledButton>

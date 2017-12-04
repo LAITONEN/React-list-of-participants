@@ -3,15 +3,15 @@ import React from 'react';
 import Text from '../../reusable/Text/Text';
 import logo from '../../nord.png';
 // css
-import css from './NavHeader.css';
+import { LogoImg, WrapperDiv } from './NavHeaderStyles.js';
 
 
 const NavHeader = ({ children }) => {
 	return (
-		<div className={css.Wrapper}>
-			<img src={logo} className={css.Logo} alt="logo" />
+		<WrapperDiv>
+			<LogoImg src={logo} alt="logo" />
 			<Text type="page-header-title">Nord Software</Text>
-		</div>
+		</WrapperDiv>
 	);
 };
 

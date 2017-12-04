@@ -62,6 +62,12 @@ const OuterDiv = styled.div.attrs({
 	width: ${props => props.width};
 `;
 
+/*const TextSpan = styled.span`
+	&:hover {
+		text-decoration: ${({isHeader }) => isHeader ? 'none' : 'underline'};
+	}
+`;*/
+
 export default class TableText extends React.Component {
 
 

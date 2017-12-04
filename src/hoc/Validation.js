@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 const validation = (WrappedComponent) => {
@@ -30,7 +28,7 @@ const validation = (WrappedComponent) => {
 
       validateName = (value) => {
           const name = value.trim();
-          const hasLetters = /[a-z]/gi;
+          const hasLetters = /[a-z]/i;
           if (
               typeof name === 'string' &&
               name.includes(' ') &&
