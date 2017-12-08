@@ -4,4 +4,4 @@
 2. Use Terminal / Command Prompt to navigate to the folder you have just downloaded using command <b>cd</b>.
 3. Run `npm install`.
 4. Run `npm start`.
-5. If the browser tab with the website has not opened, do it manually by going to http://localhost:3000/.
+5. If the browser tab with the website has not opened automatically, do it manually by going to http://localhost:3000/.
