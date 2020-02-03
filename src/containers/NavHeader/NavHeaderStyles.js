@@ -14,8 +14,16 @@ export const WrapperDiv = styled.div`
 
 export const LogoImg = styled.img`
 	height: 3.2rem;
+	color: grey;
 	display: inline-flex;
 	margin: 3.2rem 1.6rem 3.2rem 3.2rem;
 	position: relative;
 	width: 3.2rem;
 `;
+
+
+export const CompanyInfoDiv = styled.div`
+	display: flex;
+	flex-direction: row;
+	height: auto;
+`
